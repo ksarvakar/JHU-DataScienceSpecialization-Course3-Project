@@ -1,0 +1,40 @@
+---
+title: "Interactive Map with Leaflet (Johns Hopkins University Data Science Certification: Data Products Course Project)"
+author: "MD Alamgir Ph.D."
+date: "January 29, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+####Map created in R Studio using leaflet (https://rstudio.github.io/leaflet/) and annotations with R markdown
+#####1. Some Northern California Points of Interest: Golden Gate Bridge, UC Berkeley, Stanford University, and Silicon Valley Tech Museum (click the markers to show popups for the locations) 
+
+
+```{r, leaflet, echo=TRUE}
+library(leaflet)
+mapNorcal = leaflet() %>%
+ addTiles() %>%
+ addMarkers (lat= 37.819722, lng= -122.478611, popup="Golden Gate Bridge")%>%
+ addMarkers (lat= 37.4275, lng = -122.1697, popup="Stanford University")%>%
+ addMarkers (lat= 37.8719, lng = -122.2585, popup="University of California Berkeley")%>%
+ addMarkers (lat= 37.3316, lng= -121.8901, popup="Silicon Valley Tech Museum")
+mapNorcal
+
+```
+
+##
+
+####2. Two major Northern California Cities: San Francisco and San Jose. Circles are added using the addCircles() function in leaflet. Click circles to show city name and population.
+
+```{r, Bay Area Cities, echo=TRUE}
+cities <- read.csv(textConnection("
+City,Lat,Long,Pop
+San Francisco,37.78, -122.41,864816
+San Jose,37.35,-121.85,1026938"))
+leaflet(cities) %>% 
+        addTiles() %>%
+        addCircles(lng = ~Long, lat = ~Lat, weight = 2, radius = ~sqrt(Pop)*10, popup=~paste(City, ", population=", Pop)
+  )
+```
