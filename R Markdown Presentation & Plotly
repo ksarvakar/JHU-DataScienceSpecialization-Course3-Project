@@ -1,0 +1,38 @@
+Closing Prices of European Stock Indices (1991-1998)
+author: KETAN SARVAKAR date: 10 JUNE,2020 autosize: true
+
+Code
+library(plotly)
+library(tidyr)
+library(dplyr)
+data("EuStockMarkets")
+stocks <- as.data.frame(EuStockMarkets) %>%
+  gather(index, price) %>%
+  mutate(time = rep(time(EuStockMarkets), 4))
+plot_ly(stocks, x = ~time, y = ~price, color = ~index, mode = "lines")
+
+==============================================================
+
+Peer-graded Assignment: R Markdown Presentation & Plotly
+Create a web page presentation using R Markdown that features a plot created with Plotly. 
+Host your webpage on either GitHub Pages, RPubs, or NeoCities. 
+Your webpage must contain the date that you created the document, and it must contain a plot created with Plotly. 
+We would love to see you show off your creativity!
+
+data("presidents")
+library(plotly)
+## Loading required package: ggplot2
+## 
+## Attaching package: 'plotly'
+## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## The following object is masked from 'package:graphics':
+## 
+##     layout
+#The presidents dataset is the (approximately) quarterly approval rating for the President of the United States from the first quarter of 1945 to the last quarter of 1974.
+plot_ly(x=time(presidents), y=presidents, type="bar")
+## Warning: Ignoring 6 observations
